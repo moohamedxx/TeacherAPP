@@ -1,17 +1,9 @@
 package com.example.teacherapp;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.view.View;
 import android.widget.Button;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,22 +28,16 @@ public class MainActivity extends AppCompatActivity {
             if (status == TextToSpeech.SUCCESS) {
                 int result = textToSpeech.setLanguage(Locale.US);
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    // Handle language not supported
                 }
             } else {
-                // Handle TextToSpeech initialization failure
             }
         });
-
-        // Set click listeners for buttons
         btnCat.setOnClickListener(v -> speakText(btnCat.getText().toString()));
         btnDog.setOnClickListener(v -> speakText(btnDog.getText().toString()));
         btnLion.setOnClickListener(v -> speakText(btnLion.getText().toString()));
         btnElephant.setOnClickListener(v -> speakText(btnElephant.getText().toString()));
         btnTiger.setOnClickListener(v -> speakText(btnTiger.getText().toString()));
     }
-
-    // Method to speak the text
     private void speakText(String text) {
         if (textToSpeech != null) {
             textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
@@ -60,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        // Shutdown TextToSpeech when the activity is destroyed
         if (textToSpeech != null) {
             textToSpeech.stop();
             textToSpeech.shutdown();
